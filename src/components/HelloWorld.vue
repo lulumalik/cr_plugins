@@ -1,16 +1,38 @@
 <template>
   <div>
     <v-card style="box-shadow: none">
-      <v-container fluid grid-list-xl class="pt-0">
-        <v-layout row wrap align-center class="pr-2 pl-2">
+      <v-container
+        fluid
+        grid-list-xl
+        class="pt-0"
+      >
+        <v-layout
+          row
+          wrap
+          align-center
+          class="pr-2 pl-2"
+        >
           <v-flex xs12>
-            <div v-for="(re, i) in dataR" :key="i">
-              <div v-if="re[0] === 'Text'" class="mt-3">
-                <span class="font-weight-bold" style="font-size: 18px">{{
+            <div
+              v-for="(re, i) in dataR"
+              :key="i"
+            >
+              <div
+                v-if="re[0] === 'Text'"
+                class="mt-3"
+              >
+                <span
+                  class="font-weight-bold"
+                  style="font-size: 18px"
+                >{{
                   re[1] || "Text"
                 }}</span>
               </div>
-              <div v-else-if="re[0] === 'Get Location'" class="mt-3" style="position:relative">
+              <div
+                v-else-if="re[0] === 'Get Location'"
+                class="mt-3"
+                style="position:relative"
+              >
                 <input
                   readonly
                   type="text"
@@ -38,13 +60,23 @@
                   />
                 </svg>
                 <br />
-                <span style="position: relative; top: -2px" class="ml-2"
-                  >Accuration: {{ accuracy.toFixed() + " m" }}</span
-                >
+                <span
+                  style="position: relative; top: -2px"
+                  class="ml-2"
+                >Accuration: {{ accuracy.toFixed() + " m" }}</span>
               </div>
-              <div v-else-if="re[0] === 'Take Picture'" class="mt-3">
-                <div v-ripple="{ center: true }" class="text-xs-center">
-                  <div v-if="re[0] === 'Take Picture'" class="mb-6">
+              <div
+                v-else-if="re[0] === 'Take Picture'"
+                class="mt-3"
+              >
+                <div
+                  v-ripple="{ center: true }"
+                  class="text-xs-center"
+                >
+                  <div
+                    v-if="re[0] === 'Take Picture'"
+                    class="mb-6"
+                  >
                     Add Picture
                     <div v-if="imgUrl == ''">
                       <v-btn
@@ -63,8 +95,8 @@
                           <path
                             fill="#fff"
                             d="M5 4h-3v-1h3v1zm8 6c-1.654 0-3 1.346-3 3s1.346 3 3 3 3-1.346 3-3-1.346-3-3-3zm11-5v17h-24v-17h5.93c.669 0 1.293-.334 1.664-.891l1.406-2.109h8l1.406 2.109c.371.557.995.891 1.664.891h3.93zm-19 4c0-.552-.447-1-1-1s-1 .448-1 1 .447 1 1 1 1-.448 1-1zm13 4c0-2.761-2.239-5-5-5s-5 2.239-5 5 2.239 5 5 5 5-2.239 5-5z"
-                          /></svg
-                        >Camera
+                          />
+                        </svg>Camera
                       </v-btn>
                     </div>
                     <div>
@@ -104,12 +136,15 @@
                             <path
                               fill="#fff"
                               d="M5 4h-3v-1h3v1zm8 6c-1.654 0-3 1.346-3 3s1.346 3 3 3 3-1.346 3-3-1.346-3-3-3zm11-5v17h-24v-17h5.93c.669 0 1.293-.334 1.664-.891l1.406-2.109h8l1.406 2.109c.371.557.995.891 1.664.891h3.93zm-19 4c0-.552-.447-1-1-1s-1 .448-1 1 .447 1 1 1 1-.448 1-1zm13 4c0-2.761-2.239-5-5-5s-5 2.239-5 5 2.239 5 5 5 5-2.239 5-5z"
-                            /></svg
-                          >Take Image
+                            />
+                          </svg>Take Image
                         </v-btn>
                       </div>
 
-                      <canvas id="canvas" style="display: none"></canvas>
+                      <canvas
+                        id="canvas"
+                        style="display: none"
+                      ></canvas>
                       <div style="position: relative;width:250px;">
                         <div>
                           <img
@@ -143,7 +178,10 @@
                   </div>
                 </div>
               </div>
-              <div v-else-if="re[0] === 'Short Answer'" class="mt-3">
+              <div
+                v-else-if="re[0] === 'Short Answer'"
+                class="mt-3"
+              >
                 <span class="font-weight-bold">{{
                   re[1] || "Short Answer"
                 }}</span>
@@ -162,7 +200,10 @@
                   v-model="resultType[re[1]]"
                 />
               </div>
-              <div v-else-if="re[0] === 'Paragraf'" class="mt-3">
+              <div
+                v-else-if="re[0] === 'Paragraf'"
+                class="mt-3"
+              >
                 <span class="font-weight-bold">{{ re[1] }}</span>
                 <br />
                 <textarea
@@ -178,10 +219,16 @@
                   v-model="resultType[re[1]]"
                 ></textarea>
               </div>
-              <div v-else-if="re[0] === 'Multiple Choice'" class="mt-3">
+              <div
+                v-else-if="re[0] === 'Multiple Choice'"
+                class="mt-3"
+              >
                 {{ re[1] || "Multiple Choice" }}
                 <br />
-                <div v-for="(res, index) in re" :key="index">
+                <div
+                  v-for="(res, index) in re"
+                  :key="index"
+                >
                   <div v-if="index >= 2">
                     <template>
                       <div v-if="res !== '0Th3R5'">
@@ -201,7 +248,10 @@
                           v-model="resultType[re[1]]"
                           class="ma-0 pa-0"
                         >
-                          <v-radio color="teal" :value="' '">
+                          <v-radio
+                            color="teal"
+                            :value="' '"
+                          >
                             <template slot="label">
                               <div>
                                 <input
@@ -227,10 +277,16 @@
                   </div>
                 </div>
               </div>
-              <div v-else-if="re[0] === 'Checkbox'" class="mt-3">
+              <div
+                v-else-if="re[0] === 'Checkbox'"
+                class="mt-3"
+              >
                 {{ re[1] || "Checkbox Menu" }}
                 <br />
-                <div v-for="(res, index) in re" :key="index">
+                <div
+                  v-for="(res, index) in re"
+                  :key="index"
+                >
                   <div v-if="index >= 2">
                     <div v-if="res !== '0Th3R5'">
                       <v-checkbox
@@ -268,7 +324,10 @@
                   </div>
                 </div>
               </div>
-              <div v-else-if="re[0] === 'Dropdown'" class="mt-3">
+              <div
+                v-else-if="re[0] === 'Dropdown'"
+                class="mt-3"
+              >
                 {{ re[1] || "Dropdown Menu" }}
                 <br />
                 <vs-select
@@ -300,7 +359,10 @@
                   "
                   v-model="resultType[re[1]]"
                 >
-                  <div v-for="(res, is) in re" :key="is">
+                  <div
+                    v-for="(res, is) in re"
+                    :key="is"
+                  >
                     <vs-select-item
                       style="border-radius: 8px"
                       v-if="is >= 2"
@@ -312,9 +374,11 @@
               </div>
             </div>
             <div class="text-xs-center mt-4 mb-4">
-              <v-btn v-if="disable !== true" @click="upload" color="primary"
-                >Submit</v-btn
-              >
+              <v-btn
+                v-if="disable !== true"
+                @click="upload"
+                color="primary"
+              >Submit</v-btn>
               <v-progress-circular
                 class="mb-4 mt-4"
                 v-else
@@ -332,11 +396,15 @@
 </template>
 <script>
 /* eslint-disable */
+import axios from "axios";
 export default {
   props: ["idProject"],
-  mounted() {
+  async mounted() {
     // alert(this.notif.status)
-
+    const res = await axios.get(
+      "https://crowdsource.circlegeo.com/api/project/RLQEBZPQUD"
+    );
+    this.dataArr = res.data[0].projectContentMobile;
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(
         this.onWeatherWatchSuccess,
@@ -359,7 +427,7 @@ export default {
       dataArr: [],
       disable: false,
       accuracy: 0,
-      localstream: null,
+      localstream: null
     };
   },
   watch: {
@@ -367,7 +435,7 @@ export default {
       if (newVal) {
         this.disable = false;
       }
-    },
+    }
   },
   methods: {
     async upload() {
@@ -394,8 +462,8 @@ export default {
         });
       }
       console.log({
-        id: this.idProject,
-        project: this.resultType,
+        id: "RLQEBZPQUD",
+        project: this.resultType
       });
       // this.submit();
     },
@@ -426,11 +494,11 @@ export default {
       canvas.getContext("2d").drawImage(player, 0, 0);
       // Other browsers will fall back to image/png
       this.imgUrl = canvas.toDataURL("image/webp");
-      this.resultType.imgURL = this.imgUrl
+      this.resultType.imgURL = this.imgUrl;
       player.pause();
       player.src = "";
       this.localstream.getTracks()[0].stop();
-      this.localstream = null
+      this.localstream = null;
     },
     takePicture() {
       //
@@ -441,19 +509,19 @@ export default {
 
       const constraints = {
         video: {
-          facingMode: "environment",
+          facingMode: "environment"
         },
-        audio: false,
+        audio: false
       };
 
       navigator.mediaDevices
         .getUserMedia(constraints)
-        .then((stream) => {
+        .then(stream => {
           this.localstream = stream;
           player.srcObject = stream;
           player.style.display = "block";
         })
-        .catch((e) => {
+        .catch(e => {
           alert("cannot connect to camera");
         });
 
@@ -461,9 +529,9 @@ export default {
     },
     toDataURL(url, callback) {
       var httpRequest = new XMLHttpRequest();
-      httpRequest.onload = function () {
+      httpRequest.onload = function() {
         var fileReader = new FileReader();
-        fileReader.onloadend = function () {
+        fileReader.onloadend = function() {
           callback(fileReader.result);
         };
         fileReader.readAsDataURL(httpRequest.response);
@@ -504,38 +572,37 @@ export default {
       // this.resultType[imgURL] = "";
     },
 
-    generateImage: function () {
+    generateImage: function() {
       let url = this.myCroppa.generateDataUrl("image/jpeg", 0.8);
       if (!url) {
         alert("no image");
         return;
       }
       this.imgUrl = url;
-    },
+    }
   },
   computed: {
     dataR() {
-      var array = [
-        "Take Picture",
-        "Get Location",
-        "Text:;Ini Text",
-        "Short Answer:;Ini short answer",
-        "Paragraf:;Ini Paragraf",
-        "Multiple Choice:;Ini Multiple Choice:;Ya:;Tidak:;0Th3R5",
-        "Multiple Choice:;Ini Multiple Choice 2:;Check:;0Th3R5",
-        "Checkbox:;Ini Checkbox 1:;tes:;0Th3R5",
-        "Checkbox:;Ini Checkbox 2:;tes 1:;tes 2:;0Th3R5",
-        "Dropdown:;Ini dropdown:;drop answer 1:;drop answer 2",
-      ];
-      var result = [];
+      // var array = [
+      //   "Take Picture",
+      //   "Get Location",
+      //   "Text:;Ini Text",
+      //   "Short Answer:;Ini short answer",
+      //   "Paragraf:;Ini Paragraf",
+      //   "Multiple Choice:;Ini Multiple Choice:;Ya:;Tidak:;0Th3R5",
+      //   "Multiple Choice:;Ini Multiple Choice 2:;Check:;0Th3R5",
+      //   "Checkbox:;Ini Checkbox 1:;tes:;0Th3R5",
+      //   "Checkbox:;Ini Checkbox 2:;tes 1:;tes 2:;0Th3R5",
+      //   "Dropdown:;Ini dropdown:;drop answer 1:;drop answer 2",
+      // ];
 
-      array.forEach((ele) => {
+      var result = [];
+      this.dataArr.forEach(ele => {
         result.push(ele.split(":;"));
       });
-
       return result;
-    },
-  },
+    }
+  }
 };
 </script>
 <style>
