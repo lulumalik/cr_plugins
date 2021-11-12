@@ -401,8 +401,11 @@ export default {
   props: ["idProject"],
   async mounted() {
     // alert(this.notif.status)
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(urlSearchParams.entries());
+    this.id = params
     const res = await axios.get(
-      "https://crowdsource.circlegeo.com/api/project/RLQEBZPQUD"
+      `https://crowdsource.circlegeo.com/api/project/${params.id}`
     );
     this.dataArr = res.data[0].projectContentMobile;
     if (navigator.geolocation) {
@@ -415,6 +418,7 @@ export default {
   },
   data() {
     return {
+      id: null,
       imgUrl: "",
       param: "",
       latlon: "",
@@ -461,10 +465,14 @@ export default {
           }
         });
       }
-      console.log({
-        id: "RLQEBZPQUD",
-        project: this.resultType
-      });
+      axios
+        .post("https://crowdsource.circlegeo.com/api/response/submit", {
+          id: this.id ? this.id.id : null,
+          projectResponse: this.resultType
+        })
+        .then(res => {
+          alert("success");
+        });
       // this.submit();
     },
     onWeatherWatchSuccess(position) {
